@@ -1,4 +1,5 @@
 #include <iostream>
+#include <unordered_map>
 #include <algorithm>
 #include <vector>
 #include <map>
@@ -8,12 +9,12 @@ class Solution {
 	public:
 		vector<int> twoSum(vector<int>&nums, int target) 
 		{
-			std::map<int,int> m;
+			std::unordered_map<int,int> m;
 			for (unsigned int i = 0; i < nums.size(); i++) m.insert(std::make_pair(nums[i], i));
 			for (unsigned int i = 0; i < nums.size(); i++)
 			{
 				int valToFind = target - nums[i];
-				if (m.count(valToFind) > 0 && m[valToFind] != static_cast<int>(i)) 
+				if (m.find(valToFind) != m.end() && m[valToFind] != static_cast<int>(i)) 
 				{
 					return vector<int>{static_cast<int>(i), m[valToFind]};
 				}
