@@ -1,22 +1,24 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
+#include <map>
 using std::vector;
 
 class Solution {
 	public:
-		vector<int> twoSum(vector<int>&nums, int target) {
-			vector<int> rv;
-			for (decltype(nums.size()) i = 0; i < nums.size(); i++)
+		vector<int> twoSum(vector<int>&nums, int target) 
+		{
+			std::map<int,int> m;
+			for (unsigned int i = 0; i < nums.size(); i++) m.insert(std::make_pair(nums[i], i));
+			for (unsigned int i = 0; i < nums.size(); i++)
 			{
-				for (decltype(nums.size()) j = 0; j < nums.size(); j++)
+				int valToFind = target - nums[i];
+				if (m.count(valToFind) > 0 && m[valToFind] != static_cast<int>(i)) 
 				{
-					if (i != j && (nums[i]+nums[j]) == target)
-					{
-						return vector<int>{static_cast<int>(i),static_cast<int>(j)};
-					}
+					return vector<int>{static_cast<int>(i), m[valToFind]};
 				}
 			}
-			return rv;
+			return vector<int>();
 		}
 };
 
